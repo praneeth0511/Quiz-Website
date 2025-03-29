@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Quiz</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: white;
+            text-align: center;
+            color: black;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        .quiz-container {
+            margin: 50px auto;
+            padding: 30px;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #ffcc00;
+            color: black;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .options button:hover {
+            background: #ff9900;
+        }
+        .navigation {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .navigation button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .prev-btn {
+            background: gray;
+            color: white;
+        }
+        .next-btn {
+            background: #ffcc00;
+            color: black;
+        }
+        .question-container {
+            display: none;
+        }
+        .question-container.active {
+            display: block;
+        }
+        .question-number {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .question-number div {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            background: lightgray;
+            cursor: pointer;
+        }
+        .question-number div.selected {
+            background: green;
+            color: white;
+        }
+        .question-number div.review {
+            background: orange;
+            color: white;
+        }
+    </style>
+    <script>
+        const qn = document.getElementById("qn")
+        let currentQuestion = 0;
+        function showQuestion(index) {
+            let questions = document.querySelectorAll('.question-container');
+            questions.forEach(q => q.classList.remove('active'));
+            questions[index].classList.add('active');
+            qustionNumber();
+        }
+        function nextQuestion() {
+            let questions = document.querySelectorAll('.question-container');
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+            
+        }
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        }
+        function markForReview(num) {
+            document.getElementById('q' + num).classList.add('review');
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            showQuestion(currentQuestion);
+        });
+
+        function qustionNumber(){
+            qn.textContent = currentQuestion+1;
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="app-logo.png" alt="Logo">
+            <h2>Quizz</h2>
+        </div>
+    </div>
+    <div class="quiz-container">
+        <div class="question-container active">
+            <div class="question">What is the capital of France?</div>
+            <div class="options">
+                <button onclick="nextQuestion()">Paris</button>
+                <button onclick="nextQuestion()">Berlin</button>
+                <button onclick="nextQuestion()">Madrid</button>
+                <button onclick="nextQuestion()">Rome</button>
+            </div>
+        </div>
+        <div class="question-container">
+            <div class="question">What is the largest planet in our solar system?</div>
+            <div class="options">
+                <button onclick="nextQuestion()">Jupiter</button>
+                <button onclick="nextQuestion()">Earth</button>
+                <button onclick="nextQuestion()">Mars</button>
+                <button onclick="nextQuestion()">Venus</button>
+            </div>
+        </div>
+        <div class="navigation">
+            <button class="prev-btn" onclick="prevQuestion()">Previous</button>
+            <button class="next-btn" onclick="nextQuestion()">Save & Next</button>
+            <button class="next-btn" onclick="markForReview(currentQuestion)">Mark for Review</button>
+        </div>
+    </div>
+    <div class="question-number">
+        <div id="q0" onclick="showQuestion(0)"><</div>
+        <div id="qn">1</div>
+        <div id="q1" onclick="showQuestion(1)">></div>
+    </div>
+</body>
+</html>

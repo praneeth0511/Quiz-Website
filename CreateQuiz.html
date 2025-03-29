@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+    <script>
+        function generateQuestions() {
+            let container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            let numQuestions = document.getElementById('num-questions').value;
+            for (let i = 1; i <= numQuestions; i++) {
+                let questionDiv = document.createElement('div');
+                questionDiv.classList.add('form-group');
+                questionDiv.innerHTML = `
+                    <label for="question${i}">Question ${i}:</label>
+                    <textarea id="question${i}" name="question${i}" rows="3" required></textarea>
+                    <label>Options:</label>
+                    <input type="text" name="option${i}_1" placeholder="Option 1" required>
+                    <input type="text" name="option${i}_2" placeholder="Option 2" required>
+                    <input type="text" name="option${i}_3" placeholder="Option 3">
+                    <input type="text" name="option${i}_4" placeholder="Option 4">
+                `;
+                container.appendChild(questionDiv);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Create a Quiz</h2>
+        <form>
+            <div class="form-group">
+                <label for="quiz-title">Quiz Title:</label>
+                <input type="text" id="quiz-title" name="quiz-title" required>
+            </div>
+            <div class="form-group">
+                <label for="num-questions">Number of Questions:</label>
+                <input type="number" id="num-questions" name="num-questions" min="1" required oninput="generateQuestions()">
+            </div>
+            <div id="questions-container"></div>
+            <button type="submit">Create Quiz</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Platform</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: white;
+            text-align: center;
+            color: black;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-right: 10px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #ffcc00;
+        }
+        .intro {
+            padding: 60px;
+        }
+        .intro h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: #ffcc00;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 18px;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+        }
+        .btn:hover {
+            background: #ff9900;
+        }
+        .quiz-tools, .featured-quizzes, .leaderboard {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            width: fit-content;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .card button {
+            background-color: #ffcc00;
+            color: black;
+            border: none;
+            width: 100px;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+        .card button:hover {
+            background-color: #ff9900;
+        }
+        h2 {
+            font-size: 40px;
+            margin-top: 30px;
+        }
+        .footer {
+            background: rgba(0, 0, 0, 0.1);
+            color: black;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .footer a {
+            color: #ffcc00;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="app-logo.png" alt="Logo">
+            <h2>Quizz</h2>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="landingpage.html">Home</a></li>
+                <li><a href="#">Leaderboard</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="signout.html">Sign Out</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="intro">
+        <h1>Test Your Knowledge</h1>
+        <p>Challenge yourself with our exciting quizzes!</p>
+        <a href="#quizzes" class="btn">Explore</a>
+    </div>
+    <h2>Quiz Tools</h2>
+    <div class="quiz-tools">
+        <div class="card"><h3>Create Quiz</h3><p>Design custom quizzes</p><button>Create</button></div>
+        <div class="card"><h3>Manage Quiz</h3><p>Edit and organize quizzes</p><button>Manage</button></div>
+        <div class="card"><h3>Analyze Results</h3><p>Review performance</p><button>Analyze</button></div>
+        <div class="card"><h3>Challenge a Friend</h3><p>Compare quiz results</p><button>Challenge</button></div>
+    </div>
+    <h2 id="quizzes">Available Quizzes</h2>
+    <div class="featured-quizzes">
+        <div class="card"><h3>Maths Quiz</h3><p>Sharpen your math skills</p><button>Start</button></div>
+        <div class="card"><h3>Science Quiz</h3><p>Explore the wonders of science</p><button>Start</button></div>
+        <div class="card"><h3>History Quiz</h3><p>Learn about historical events</p><button>Start</button></div>
+        <div class="card"><h3>Geography Quiz</h3><p>Discover the world</p><button>Start</button></div>
+        <div class="card"><h3>Programming Quiz</h3><p>Test your coding skills</p><button>Start</button></div>
+        <div class="card"><h3>Sports Quiz</h3><p>Test your knowledge of sports</p><button>Start</button></div>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2025 Quiz Platform. All Rights Reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+</body>
+</html>

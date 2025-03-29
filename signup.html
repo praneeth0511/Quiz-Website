@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; 
+            background-color: #ffffff;
+            height: 100vh;
+            margin: 0;
+        }
+        .signup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px;
+            width: 350px;
+            border-radius: 12px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .app-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .app-logo img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 10px;
+        }
+        .details {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .details input {
+            height: 40px;
+            outline: none;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .details p, .details a {
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .details a:hover {
+            text-decoration: underline;
+        }
+        .details button {
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .details button:hover {
+            background-color: #0056b3;
+        }
+        .more-options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .more-options p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+        }
+        .social-icons img {
+            width: 35px;
+            height: 35px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .social-icons img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <form class="signup">
+        <div class="app-logo">
+            <img src="app-logo.png" alt="App Logo">
+            <p>Quiz Application</p>
+        </div>
+        <div class="details">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email or Phone" required>
+            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+            <p>Have an account? <a href="signin.html">Sign in</a></p>
+            <button type="submit">Sign Up</button>
+        </div>
+        <div class="more-options">
+            <p>Or continue with:</p>
+            <div class="social-icons">
+                <a href="#"><img src="google.png" alt="Google"></a>
+                <a href="#"><img src="facebook.png" alt="Facebook"></a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
