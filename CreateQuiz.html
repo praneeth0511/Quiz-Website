@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,32 +46,90 @@
             background: #218838;
         }
     </style>
+    
     <script>
-        function generateQuestions() {
+        let editIndex = null;
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function generateQuestions(quiz = null) {
             let container = document.getElementById('questions-container');
             container.innerHTML = '';
-            let numQuestions = document.getElementById('num-questions').value;
+            let numQuestions = quiz ? quiz.questions.length : document.getElementById('num-questions').value;
+
             for (let i = 1; i <= numQuestions; i++) {
                 let questionDiv = document.createElement('div');
                 questionDiv.classList.add('form-group');
+                let questionText = quiz ? quiz.questions[i - 1].question : '';
+                let options = quiz ? quiz.questions[i - 1].options : ['', '', '', ''];
+
                 questionDiv.innerHTML = `
                     <label for="question${i}">Question ${i}:</label>
-                    <textarea id="question${i}" name="question${i}" rows="3" required></textarea>
+                    <textarea id="question${i}" name="question${i}" rows="3" required>${questionText}</textarea>
                     <label>Options:</label>
-                    <input type="text" name="option${i}_1" placeholder="Option 1" required>
-                    <input type="text" name="option${i}_2" placeholder="Option 2" required>
-                    <input type="text" name="option${i}_3" placeholder="Option 3">
-                    <input type="text" name="option${i}_4" placeholder="Option 4">
+                    <input type="text" name="option${i}_1" placeholder="Option 1" required value="${options[0] || ''}">
+                    <input type="text" name="option${i}_2" placeholder="Option 2" required value="${options[1] || ''}">
+                    <input type="text" name="option${i}_3" placeholder="Option 3" value="${options[2] || ''}">
+                    <input type="text" name="option${i}_4" placeholder="Option 4" value="${options[3] || ''}">
                 `;
                 container.appendChild(questionDiv);
             }
         }
+
+        function populateEditQuiz() {
+            const quizzes = JSON.parse(localStorage.getItem('quizzes')) || [];
+            editIndex = getQueryParam('edit');
+            if (editIndex !== null && quizzes[editIndex]) {
+                const quiz = quizzes[editIndex];
+                document.getElementById('quiz-title').value = quiz.title;
+                document.getElementById('num-questions').value = quiz.questions.length;
+                generateQuestions(quiz);
+            }
+        }
+
+        function saveQuizToLocalStorage(event) {
+            event.preventDefault();
+            const title = document.getElementById('quiz-title').value;
+            const numQuestions = document.getElementById('num-questions').value;
+            const questions = [];
+
+            for (let i = 1; i <= numQuestions; i++) {
+                const questionText = document.getElementById(`question${i}`).value;
+                const options = [];
+                for (let j = 1; j <= 4; j++) {
+                    const optionInput = document.querySelector(`[name=option${i}_${j}]`);
+                    if (optionInput && optionInput.value.trim() !== '') {
+                        options.push(optionInput.value.trim());
+                    }
+                }
+                questions.push({ question: questionText, options });
+            }
+
+            const quiz = { title, questions };
+            const quizzes = JSON.parse(localStorage.getItem('quizzes')) || [];
+
+            if (editIndex !== null && quizzes[editIndex]) {
+                quizzes[editIndex] = quiz;
+            } else {
+                quizzes.push(quiz);
+            }
+
+            localStorage.setItem('quizzes', JSON.stringify(quizzes));
+            alert('Quiz saved successfully!');
+            window.location.href = 'ManageQuiz.html';
+        }
+
+        window.onload = populateEditQuiz;
     </script>
+    
 </head>
 <body>
     <div class="container">
         <h2>Create a Quiz</h2>
-        <form>
+        <form id="quiz-form" onsubmit="saveQuizToLocalStorage(event)">
             <div class="form-group">
                 <label for="quiz-title">Quiz Title:</label>
                 <input type="text" id="quiz-title" name="quiz-title" required>

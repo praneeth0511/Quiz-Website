@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Quiz</title>
+    <title>Manage Quizzes</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,28 +23,6 @@
         h2 {
             text-align: center;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input, textarea, button, select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
         .quiz-list {
             margin-top: 20px;
         }
@@ -57,70 +36,60 @@
             justify-content: space-between;
             align-items: center;
         }
+        .quiz-item button {
+            margin-left: 5px;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            color: white;
+        }
+        .edit-btn { background-color: #007bff; }
+        .delete-btn { background-color: #dc3545; }
+        .deploy-btn { background-color: #28a745; }
     </style>
     <script>
         function loadQuizzes() {
-            let quizList = document.getElementById('quiz-list');
-            quizList.innerHTML = '';
-            let quizzes = JSON.parse(localStorage.getItem('quizzes')) || [];
+            const quizzes = JSON.parse(localStorage.getItem('quizzes')) || [];
+            const list = document.getElementById('quiz-list');
+            list.innerHTML = '';
             quizzes.forEach((quiz, index) => {
-                let quizItem = document.createElement('div');
-                quizItem.classList.add('quiz-item');
-                quizItem.innerHTML = `
-                    <span>${quiz.title}</span>
+                const item = document.createElement('div');
+                item.className = 'quiz-item';
+                item.innerHTML = `
+                    <span><strong>${quiz.title}</strong></span>
                     <div>
-                        <button onclick="editQuiz(${index})">Edit</button>
-                        <button onclick="deleteQuiz(${index})" style="background: red;">Delete</button>
+                        <button class="edit-btn" onclick="editQuiz(${index})">Edit</button>
+                        <button class="delete-btn" onclick="deleteQuiz(${index})">Delete</button>
+                        <button class="deploy-btn" onclick="deployQuiz(${index})">Deploy</button>
                     </div>
                 `;
-                quizList.appendChild(quizItem);
+                list.appendChild(item);
             });
         }
-        
-        function editQuiz(index) {
-            let quizzes = JSON.parse(localStorage.getItem('quizzes')) || [];
-            let quiz = quizzes[index];
-            document.getElementById('quiz-title').value = quiz.title;
-            document.getElementById('quiz-id').value = index;
-        }
-        
-        function saveQuiz() {
-            let title = document.getElementById('quiz-title').value;
-            let index = document.getElementById('quiz-id').value;
-            let quizzes = JSON.parse(localStorage.getItem('quizzes')) || [];
-            if (index === '') {
-                quizzes.push({ title });
-            } else {
-                quizzes[index].title = title;
-            }
-            localStorage.setItem('quizzes', JSON.stringify(quizzes));
-            document.getElementById('quiz-form').reset();
-            loadQuizzes();
-        }
-        
+
         function deleteQuiz(index) {
-            let quizzes = JSON.parse(localStorage.getItem('quizzes')) || [];
+            const quizzes = JSON.parse(localStorage.getItem('quizzes')) || [];
             quizzes.splice(index, 1);
             localStorage.setItem('quizzes', JSON.stringify(quizzes));
             loadQuizzes();
         }
-        
+
+        function editQuiz(index) {
+            window.location.href = `CreateQuiz.html?edit=${index}`;
+        }
+
+        function deployQuiz(index) {
+            window.location.href = `Quiz.html?quiz=${index}`;
+        }
+
         window.onload = loadQuizzes;
     </script>
 </head>
 <body>
     <div class="container">
-        <h2>Manage Quiz</h2>
-        <form id="quiz-form" onsubmit="event.preventDefault(); saveQuiz();">
-            <input type="hidden" id="quiz-id">
-            <div class="form-group">
-                <label for="quiz-title">Quiz Title:</label>
-                <input type="text" id="quiz-title" name="quiz-title" required>
-            </div>
-            <button type="submit">Save Quiz</button>
-        </form>
-        
-        <div class="quiz-list" id="quiz-list"></div>
+        <h2>Manage Your Quizzes</h2>
+        <div id="quiz-list" class="quiz-list"></div>
     </div>
 </body>
 </html>
