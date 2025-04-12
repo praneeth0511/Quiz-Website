@@ -139,7 +139,7 @@
         <nav>
             <ul>
                 <li><a href="landingpage.html">Home</a></li>
-                <li><a href="#">Leaderboard</a></li>
+                <li><a href="Leaderboard.html">Leaderboard</a></li>
                 <li><a href="#">Profile</a></li>
                 <li><a href="signout.html">Sign Out</a></li>
             </ul>
@@ -148,6 +148,7 @@
     <div class="intro">
         <h1>Test Your Knowledge</h1>
         <p>Challenge yourself with our exciting quizzes!</p>
+        <br>
         <a href="#quizzes" class="btn">Explore</a>
     </div>
     <h2>Quiz Tools</h2>
@@ -160,6 +161,25 @@
     <h2 id="quizzes">Available Quizzes</h2>
     <div class="featured-quizzes">
         <div class="card"><h3>Maths Quiz</h3><p>Sharpen your math skills</p><button onclick="window.location.href='maths.html'">Start</button></div>
+<script>
+    window.onload = function () {
+        const quizContainer = document.getElementById('quiz-container-dynamic');
+        const quizzes = JSON.parse(localStorage.getItem('quizzes')) || [];
+
+        quizzes.forEach((quiz, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <h3>${quiz.title}</h3>
+                <p>Take this quiz now!</p>
+                <button onclick="window.location.href='Quiz.html?quiz=${index}'">Start</button>
+            `;
+            quizContainer.appendChild(card);
+        });
+    };
+</script>
+<div class="featured-quizzes" id="quiz-container-dynamic" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;"></div>
+
         <div class="card"><h3>Science Quiz</h3><p>Explore the wonders of science</p><button>Start</button></div>
         <div class="card"><h3>History Quiz</h3><p>Learn about historical events</p><button>Start</button></div>
         <div class="card"><h3>Geography Quiz</h3><p>Discover the world</p><button>Start</button></div>
